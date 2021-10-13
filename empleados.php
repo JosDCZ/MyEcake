@@ -19,6 +19,10 @@ include "Config/Conexion.php"
 
     <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css">
 
+    <!-- icono mostrar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
@@ -182,7 +186,7 @@ include "Config/Conexion.php"
                                                 <div class="form-group has-icon-left">
                                                     <label for="Nombre-icon">Nombre</label>
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control" placeholder="Juan Carlos" id="Nombre-icon">
+                                                        <input type="text" class="form-control" placeholder="Juan Carlos" id="Nombre-icon" maxlength="50">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-person"></i>
                                                         </div>
@@ -191,7 +195,7 @@ include "Config/Conexion.php"
                                                 <div class="form-group has-icon-left">
                                                     <label for="Apellido-icon">Apellido</label>
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control" placeholder="Perez Soza" id="Apellido-icon">
+                                                        <input type="text" class="form-control" placeholder="Perez Soza" id="Apellido-icon" maxlength="50">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-person"></i>
                                                         </div>
@@ -201,474 +205,650 @@ include "Config/Conexion.php"
                                                 <div class="form-group has-icon-left">
                                                     <label for="Correo-icon">Correo</label>
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control" placeholder="jose145@gmail.com" id="Correo-icon">
+                                                        <input type="text" class="form-control" placeholder="jose145@gmail.com" id="Correo-icon" maxlength="75">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-envelope"></i>
                                                         </div>
                                                     </div>
                                                 </div>
+
 
                                                 <div class="form-group has-icon-left">
                                                     <label for="Contraseña-icon">Contraseña</label>
                                                     <div class="position-relative">
-                                                        <input type="password" class="form-control" placeholder="************" id="Contraseña-icon">
+                                                    <div class="input-group">
+                                                        <input type="Password" id="Contraseña-icon" maxlength="25" placeholder="************" Class="form-control">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-lock"></i>
                                                         </div>
+                                                        <div class="input-group-append">
+                                                            <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+                                                        </div>
+                                                    </div>
                                                     </div>
                                                 </div>
+
+                                            <div class="form-group has-icon-left">
+                                                <label for="admin-icon">Administrador</label>
+                                                <div class="position-relative">
+                                                    <label class="switch">
+                                                        <input type="checkbox" id="admin-icon">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal" onclick="Limpiar()">
-                                                    <i class="bx bx-x d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Cancelar</span>
-                                                </button>
-                                                <button type="button" class="btn btn-primary ml-1" onclick="validarCampos()">
-                                                    <i class="bx bx-check d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Registrar</span>
-                                                </button>
-                                            </div>
-                                        </form>
                                     </div>
-                                </div>
-                            </div>
-
-                            <!--Form Modal Modificar-->
-                            <div class="modal fade text-left" id="ModificarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="myModalLabel33">Modificar empleado</h4>
-                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                <i data-feather="x"></i>
-                                            </button>
-                                        </div>
-                                        <form action="#">
-                                            <div class="modal-body">
-                                                <div class="form-group has-icon-left">
-                                                    <label for="mod-Id-icon">ID</label>
-                                                    <div class="position-relative">
-                                                        <input type="text" class="form-control" placeholder="#" id="mod-Id-icon">
-                                                        <div class="form-control-icon">
-                                                            <i class="bi bi-key"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group has-icon-left">
-                                                    <label for="mod-Nombre-icon">Nombre</label>
-                                                    <div class="position-relative">
-                                                        <input type="text" class="form-control" placeholder="Juan Carlos" id="mod-Nombre-icon">
-                                                        <div class="form-control-icon">
-                                                            <i class="bi bi-person"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group has-icon-left">
-                                                    <label for="mod-Apellido-icon">Apellido</label>
-                                                    <div class="position-relative">
-                                                        <input type="text" class="form-control" placeholder="Perez Soza" id="mod-Apellido-icon">
-                                                        <div class="form-control-icon">
-                                                            <i class="bi bi-person"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group has-icon-left">
-                                                    <label for="mod-Correo-icon">Correo</label>
-                                                    <div class="position-relative">
-                                                        <input type="text" class="form-control" placeholder="jose145@gmail.com" id="mod-Correo-icon">
-                                                        <div class="form-control-icon">
-                                                            <i class="bi bi-envelope"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group has-icon-left">
-                                                    <label for="mod-Contraseña-icon">Contraseña</label>
-                                                    <div class="position-relative">
-                                                        <input type="text" class="form-control" placeholder="************" id="mod-Contraseña-icon">
-                                                        <div class="form-control-icon">
-                                                            <i class="bi bi-lock"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                                                    <i class="bx bx-x d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Cancelar</span>
-                                                </button>
-                                                <button type="button" class="btn btn-primary ml-1" data-bs-dismiss="modal" onclick="Editar()">
-                                                    <i class="bx bx-check d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Modificar</span>
-                                                </button>
-                                                <input type="hidden" id="hiddendata">
-                                            </div>
-                                        </form>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal" onclick="Limpiar()">
+                                            <i class="bx bx-x d-block d-sm-none"></i>
+                                            <span class="d-none d-sm-block">Cancelar</span>
+                                        </button>
+                                        <button type="button" class="btn btn-primary ml-1" onclick="validarCampos()">
+                                            <i class="bx bx-check d-block d-sm-none"></i>
+                                            <span class="d-none d-sm-block">Registrar</span>
+                                        </button>
                                     </div>
+                                    </form>
                                 </div>
-                            </div>
-
-                            <div class="card-body">
-
-                                <div id="tablaMostrar"></div>
                             </div>
                         </div>
 
-                    </section>
+                        <!--Form Modal Modificar-->
+                        <div class="modal fade text-left" id="ModificarModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myModalLabel33" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel33">Modificar empleado</h4>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <i data-feather="x"></i>
+                                        </button>
+                                    </div>
+                                    <form action="#">
+                                        <div class="modal-body">
+                                            <div class="form-group has-icon-left">
+                                                <label for="mod-Id-icon">ID</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="#" id="mod-Id-icon">
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-key"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group has-icon-left">
+                                                <label for="mod-Nombre-icon">Nombre</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="Juan Carlos" id="mod-Nombre-icon">
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-person"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group has-icon-left">
+                                                <label for="mod-Apellido-icon">Apellido</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="Perez Soza" id="mod-Apellido-icon">
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-person"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-icon-left">
+                                                <label for="mod-Correo-icon">Correo</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="jose145@gmail.com" id="mod-Correo-icon">
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-envelope"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group has-icon-left">
+                                                <label for="mod-Contraseña-icon">Contraseña</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="************" id="mod-Contraseña-icon">
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-lock"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light-secondary" onclick="LimpiarMod()" data-bs-dismiss="modal">
+                                                <i class="bx bx-x d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Cancelar</span>
+                                            </button>
+                                            <button type="button" class="btn btn-primary ml-1" onclick="validarCamposMod()">
+                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Modificar</span>
+                                            </button>
+                                            <input type="hidden" id="hiddendata">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div id="tablaMostrar"></div>
+                        </div>
                 </div>
 
-                <footer>
-                    <div class="footer clearfix mb-0 text-muted">
-                        <div class="float-start">
-                            <p>2021 &copy; Ecake</p>
-                        </div>
-                        <div class="float-end">
-                            <p>Creado con mucho <span class="text-danger"><i class="bi bi-heart"></i></span> para <a href="https://github.com/JosDCZ/Pasteleria">ti</a></p>
-                        </div>
-                    </div>
-                </footer>
+                </section>
             </div>
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2021 &copy; Ecake</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Creado con mucho <span class="text-danger"><i class="bi bi-heart"></i></span> para <a href="https://github.com/JosDCZ/Pasteleria">ti</a></p>
+                    </div>
+                </div>
+            </footer>
         </div>
-        <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-        <script src="assets/js/bootstrap.bundle.min.js"></script>
+    </div>
+    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-        <script src="assets/js/extensions/sweetalert2.js"></script>
-        <script src="assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="assets/js/extensions/sweetalert2.js"></script>
+    <script src="assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
 
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-        <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-        <!-- AJAX mio -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script>
-            // Simple Datatable
-            let table1 = document.querySelector('#table1');
-            let dataTable = new simpleDatatables.DataTable(table1);
-        </script>
+    <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <!-- AJAX mio -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Simple Datatable
+        let table1 = document.querySelector('#table1');
+        let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
 
-        <script src="assets/js/main.js"></script>
+    <script type="text/javascript">
+        function mostrarPassword() {
+            var cambio = document.getElementById("Contraseña-icon");
+            if (cambio.type == "password") {
+                cambio.type = "text";
+                $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+            } else {
+                cambio.type = "password";
+                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            }
+        }
 
-        <script>
-            var pasar = "algo";
-
-            $(document).ready(function() {
-                MostrarDatos();
+        $(document).ready(function() {
+            //CheckBox mostrar contraseña
+            $('#ShowPassword').click(function() {
+                $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
             });
+        });
+    </script>
 
-            function MostrarDatos() {
-                var MostrarDatos = "true";
-                $.ajax({
-                    url: "Controller/ControllerEmpleado.php",
-                    type: 'POST',
-                    data: {
-                        MostrarSend: MostrarDatos
-                    },
-                    success: function(data, status) {
-                        $('#tablaMostrar').html(data);
-                    }
-                });
-            }
+    <script src="assets/js/main.js"></script>
 
-            function validarCampos() {
+    <script>
+        var pasar = "algo";
 
-                var reg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+.)+[A-Z]{2,4}$/i;
+        $(document).ready(function() {
+            MostrarDatos();
+        });
 
-                var IdAdd = $('#Id-icon').val();
-                var NombreAdd = $('#Nombre-icon').val();
-                var ApellidoAdd = $('#Apellido-icon').val();
-                var CorreoAdd = $('#Correo-icon').val();
-                var ContraseñaAdd = $('#Contraseña-icon').val();
-
-                if (NombreAdd.length < 3) {
-                    toastify("Ingrese un nombre correcto", 2);
-                    $('#Nombre-icon').focus();
-                    $('#Nombre-icon').css("background", "#fb6e893b").fadeIn(3000);
-                } else if (ApellidoAdd.length < 3) {
-                    toastify("Ingrese un apellido correcto", 2);
-                    $('#Nombre-icon').css("background", "#fff");
-                    $('#Apellido-icon').focus();
-                    $('#Apellido-icon').css("background", "#fb6e893b").fadeIn(3000);
-                } else if (CorreoAdd.length < 3 && !reg.test(CorreoAdd)) {
-                    toastify("Ingrese un correo correcto", 2);
-                    $('#Apellido-icon').css("background", "#fff");
-                    $('#Correo-icon').focus();
-                    $('#Correo-icon').css("background", "#fb6e893b").fadeIn(3000);
-
-                } else if (ContraseñaAdd.length < 3) {
-                    toastify("Ingrese una contraseña correcta", 2);
-                    $('#Correo-icon').css("background", "#fff");
-                    $('#Contraseña-icon').focus();
-                    $('#Contraseña-icon').css("background", "#fb6e893b").fadeIn(3000);
-
-                } else {
-                    Agregar();
+        function MostrarDatos() {
+            var MostrarDatos = "true";
+            $.ajax({
+                url: "Controller/ControllerEmpleado.php",
+                type: 'POST',
+                data: {
+                    MostrarSend: MostrarDatos
+                },
+                success: function(data, status) {
+                    $('#tablaMostrar').html(data);
                 }
+            });
+        }
+
+        function soloLetras(texto) {
+            var regex = /^[a-zA-Z ]+$/;
+            return regex.test(texto);
+        }
+
+        function soloNumeros(texto) {
+            var regex = /^([0-9])*$/;
+            return regex.test(texto);
+        }
+
+        function soloCorreo(texto) {
+            var regex = /^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i;
+            return regex.test(texto);
+        }
+
+        function soloContrasena(texto) {
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/;
+            return regex.test(texto);
+        }
+
+        function validarCampos() {
+
+            var reg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+.)+[A-Z]{2,4}$/i;
+
+            var IdAdd = $('#Id-icon').val();
+            var NombreAdd = $('#Nombre-icon').val();
+            var ApellidoAdd = $('#Apellido-icon').val();
+            var CorreoAdd = $('#Correo-icon').val();
+            var ContraseñaAdd = $('#Contraseña-icon').val();
+
+            if (NombreAdd.length < 3) {
+                toastify("Campo Nombre vacio", 2);
+                $('#Nombre-icon').focus();
+                $('#Nombre-icon').css("background", "#fb6e893b").fadeIn(3000);
+            } else if (soloLetras(NombreAdd) == false) {
+                toastify("Ingrese solo letras en el campo Nombre", 2);
+                $('#Nombre-icon').focus();
+                $('#Nombre-icon').css("background", "#fb6e893b").fadeIn(3000);
+            } else if (ApellidoAdd.length < 3) {
+                toastify("Campo Apellido vacio", 2);
+                $('#Nombre-icon').css("background", "#fff");
+                $('#Apellido-icon').focus();
+                $('#Apellido-icon').css("background", "#fb6e893b").fadeIn(3000);
+            } else if (soloLetras(ApellidoAdd) == false) {
+                toastify("Ingrese solo letras en el campo Apellido", 2);
+                $('#Nombre-icon').css("background", "#fff");
+                $('#Apellido-icon').focus();
+                $('#Apellido-icon').css("background", "#fb6e893b").fadeIn(3000);
+            } else if (CorreoAdd.length < 3 && !reg.test(CorreoAdd)) {
+                toastify("Ingrese un correo correcto", 2);
+                $('#Apellido-icon').css("background", "#fff");
+                $('#Correo-icon').focus();
+                $('#Correo-icon').css("background", "#fb6e893b").fadeIn(3000);
+            } else if (soloCorreo(CorreoAdd) == false) {
+                toastify("Ingrese un correo correcto", 2);
+                $('#Apellido-icon').css("background", "#fff");
+                $('#Correo-icon').focus();
+                $('#Correo-icon').css("background", "#fb6e893b").fadeIn(3000);
+            } else if (ContraseñaAdd.length < 3) {
+                toastify("Ingrese una contraseña correcta", 2);
+                $('#Correo-icon').css("background", "#fff");
+                $('#Contraseña-icon').focus();
+                $('#Contraseña-icon').css("background", "#fb6e893b").fadeIn(3000);
+            } else if (soloContrasena(ContraseñaAdd) == false) {
+                toastify("Ingrese una contraseña de acuerdo a las politicas\n\n- Minimo 8 caracteres\n- Maximo 15 caracteres\n- Al menos una letra mayúscula\n- Al menos una letra minuscula\n- Al menos un dígito\n- No espacios en blanco\n- Al menos 1 caracter especial", 2);
+                $('#Correo-icon').css("background", "#fff");
+                $('#Contraseña-icon').focus();
+                $('#Contraseña-icon').css("background", "#fb6e893b").fadeIn(3000);
+            } else {
+                Agregar();
             }
+        }
 
-            function Agregar() {
-                var IdAdd = $('#Id-icon').val();
-                var NombreAdd = $('#Nombre-icon').val();
-                var ApellidoAdd = $('#Apellido-icon').val();
-                var CorreoAdd = $('#Correo-icon').val();
-                var ContraseñaAdd = $('#Contraseña-icon').val();
-                pasar = "Agregar";
-                $.ajax({
-                    url: "Controller/ControllerEmpleado.php",
-                    type: 'POST',
-                    data: {
-                        IdSend: IdAdd,
-                        NombreSend: NombreAdd,
-                        ApellidoSend: ApellidoAdd,
-                        CorreoSend: CorreoAdd,
-                        ContraseñaSend: ContraseñaAdd,
-                        paso: pasar
-                    },
-                    success: function(data, status) {
-                        //mostrar datos
-                        var hecho = JSON.parse(data);
-                        // console.log(hecho);
-                        if (hecho === 1) {
-                            Limpiar();
-                            alertaSimple("¡Acción realizada!", "Registro guardado con exito", "success", "Hecho");
-                            MostrarDatos();
-                        } else {
-                            alertaSimple("¡Acción Fallida!", "Registro no se pudo guardar", "error", "Vale");
-                        }
+        function validarCamposMod() {
 
-                    }
-                });
+            var reg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+.)+[A-Z]{2,4}$/i;
+
+            var IdAdd = $('#mod-Id-icon').val();
+            var NombreAdd = $('#mod-Nombre-icon').val();
+            var ApellidoAdd = $('#mod-Apellido-icon').val();
+            var CorreoAdd = $('#mod-Correo-icon').val();
+            var ContraseñaAdd = $('#mod-Contraseña-icon').val();
+
+            if (IdAdd.length < 1) {
+                toastify("Ingrese un id correcto", 2);
+                $('#mod-Id-icon').focus();
+                $('#mod-Id-icon').css("background", "#fb6e893b").fadeIn(3000);
+            } else if (NombreAdd.length < 3) {
+                toastify("Ingrese un nombre correcto", 2);
+                $('#mod-Id-icon').css("background", "#fff");
+                $('#mod-Nombre-icon').focus();
+                $('#mod-Nombre-icon').css("background", "#fb6e893b").fadeIn(3000);
+            } else if (ApellidoAdd.length < 3) {
+                toastify("Ingrese un apellido correcto", 2);
+                $('#mod-Nombre-icon').css("background", "#fff");
+                $('#mod-Apellido-icon').focus();
+                $('#mod-Apellido-icon').css("background", "#fb6e893b").fadeIn(3000);
+            } else if (CorreoAdd.length < 3 && !reg.test(CorreoAdd)) {
+                toastify("Ingrese un correo correcto", 2);
+                $('#mod-Apellido-icon').css("background", "#fff");
+                $('#mod-Correo-icon').focus();
+                $('#mod-Correo-icon').css("background", "#fb6e893b").fadeIn(3000);
+
+            } else if (ContraseñaAdd.length < 3) {
+                toastify("Ingrese una contraseña correcta", 2);
+                $('#mod-Correo-icon').css("background", "#fff");
+                $('#mod-Contraseña-icon').focus();
+                $('#mod-Contraseña-icon').css("background", "#fb6e893b").fadeIn(3000);
+
+            } else {
+
+                Editar();
             }
+        }
 
-            function Eliminar(idEliminar) {
-                pasar = "Borrar";
-                $.ajax({
-                    url: "Controller/ControllerEmpleado.php",
-                    type: 'POST',
-                    data: {
-                        eliminarSend: idEliminar,
-                        paso: pasar
-                    },
-                    success: function(data, status) {
-                        //mostrar datos
-                        //console.log(status);   
-                        MostrarDatos();
-                    }
-                });
+        function Agregar() {
+            var IdAdd = $('#Id-icon').val();
+            var NombreAdd = $('#Nombre-icon').val();
+            var ApellidoAdd = $('#Apellido-icon').val();
+            var CorreoAdd = $('#Correo-icon').val();
+            var ContraseñaAdd = $('#Contraseña-icon').val();
+            var admin = 0;
+            if ($('#admin-icon').is(':checked')) {
+                admin = 1;
             }
-
-            //onclick en los botonos de la tabla
-            function MostrarEditar(idActualizar) {
-                $('#hiddendata').val(idActualizar);
-                pasar = "Actualizar";
-                $.post("Controller/ControllerEmpleado.php", {
-                    idActualizar: idActualizar,
+            pasar = "Agregar";
+            $.ajax({
+                url: "Controller/ControllerEmpleado.php",
+                type: 'POST',
+                data: {
+                    IdSend: IdAdd,
+                    NombreSend: NombreAdd,
+                    ApellidoSend: ApellidoAdd,
+                    CorreoSend: CorreoAdd,
+                    ContraseñaSend: ContraseñaAdd,
+                    AdminSend: admin,
                     paso: pasar
-                }, function(data, status) {
-                    var id = JSON.parse(data);
-                    if (id == 0) {
-                        alertaSimple("¡Acción Fallida!", "No se pudo Obtener datos", "error", "Vale");
-                    } else {
-                        $('#mod-Id-icon').val(id.idempleado);
-                        $('#mod-Nombre-icon').val(id.nombre);
-                        $('#mod-Apellido-icon').val(id.apellido);
-                        $('#mod-Correo-icon').val(id.correo);
-                        $('#mod-Contraseña-icon').val(atob(id.contraseña));
-                    }
-
-                });
-                $('#ModificarModal').modal('show');
-            }
-
-            //onclick en el modal
-            function Editar() {
-
-                var modIdAdd = $('#mod-Id-icon').val();
-                var modNombreAdd = $('#mod-Nombre-icon').val();
-                var modApellidoAdd = $('#mod-Apellido-icon').val();
-                var modCorreoAdd = $('#mod-Correo-icon').val();
-                var modContraseñaAdd = $('#mod-Contraseña-icon').val();
-                var idoculto = $('#hiddendata').val();
-                pasar = "Actualizar";
-
-
-                $.post("Controller/ControllerEmpleado.php", {
-                    modIdAdd: modIdAdd,
-                    modNombreAdd: modNombreAdd,
-                    modApellidoAdd: modApellidoAdd,
-                    modCorreoAdd: modCorreoAdd,
-                    modContraseñaAdd: modContraseñaAdd,
-                    idoculto: idoculto,
-                    paso: pasar
-                }, function(data, status) {
+                },
+                success: function(data, status) {
+                    //mostrar datos
                     var hecho = JSON.parse(data);
+                    // console.log(hecho);
                     if (hecho === 1) {
                         Limpiar();
-                        $('#ModificarModal').modal('hide');
-                        alertaSimple("¡Acción realizada!", "Registro modificado con exito", "success", "Hecho");
+                        alertaSimple("¡Acción realizada!", "Registro guardado con exito", "success", "Hecho");
                         MostrarDatos();
                     } else {
-                        alertaSimple("¡Acción Fallida!", "Registro no se pudo actualizar", "error", "Vale");
+                        alertaSimple("¡Acción Fallida!", "Registro no se pudo guardar", "error", "Vale");
                     }
-                });
 
-            }
+                }
+            });
+        }
 
-            function estadoAdmin(idestado) {
-                console.log("id: " + idestado);
-                var nombre = ""; 
-                var apellido = "";
-                pasar = "obtener";
-
-                $.post("Controller/ControllerEmpleado.php", {
-                    idObteSend: idestado,
+        function Eliminar(idEliminar) {
+            pasar = "Borrar";
+            $.ajax({
+                url: "Controller/ControllerEmpleado.php",
+                type: 'POST',
+                data: {
+                    eliminarSend: idEliminar,
                     paso: pasar
-                }, function(data, status) {
-                    var id = JSON.parse(data);
-                    if (id == 0) {
-                        alertaSimple("¡Acción Fallida!", "No se pudo Obtener datos", "error", "Vale");
+                },
+                success: function(data, status) {
+                    //mostrar datos
+                    //console.log(status);   
+                    MostrarDatos();
+                }
+            });
+        }
+
+        //onclick en los botonos de la tabla
+        function MostrarEditar(idActualizar) {
+            $('#hiddendata').val(idActualizar);
+            pasar = "Actualizar";
+            $.post("Controller/ControllerEmpleado.php", {
+                idActualizar: idActualizar,
+                paso: pasar
+            }, function(data, status) {
+                var id = JSON.parse(data);
+                if (id == 0) {
+                    alertaSimple("¡Acción Fallida!", "No se pudo Obtener datos", "error", "Vale");
+                } else {
+                    $('#mod-Id-icon').val(id.idempleado);
+                    $('#mod-Nombre-icon').val(id.nombre);
+                    $('#mod-Apellido-icon').val(id.apellido);
+                    $('#mod-Correo-icon').val(id.correo);
+                    $('#mod-Contraseña-icon').val(atob(id.contraseña));
+                }
+
+            });
+
+            $('#ModificarModal').modal('show');
+        }
+
+        //onclick en el modal
+        function Editar() {
+
+            var modIdAdd = $('#mod-Id-icon').val();
+            var modNombreAdd = $('#mod-Nombre-icon').val();
+            var modApellidoAdd = $('#mod-Apellido-icon').val();
+            var modCorreoAdd = $('#mod-Correo-icon').val();
+            var modContraseñaAdd = $('#mod-Contraseña-icon').val();
+            var idoculto = $('#hiddendata').val();
+            pasar = "Actualizar";
+
+
+            $.post("Controller/ControllerEmpleado.php", {
+                modIdAdd: modIdAdd,
+                modNombreAdd: modNombreAdd,
+                modApellidoAdd: modApellidoAdd,
+                modCorreoAdd: modCorreoAdd,
+                modContraseñaAdd: modContraseñaAdd,
+                idoculto: idoculto,
+                paso: pasar
+            }, function(data, status) {
+                var hecho = JSON.parse(data);
+                if (hecho === 1) {
+                    LimpiarMod();
+                    alertaSimple("¡Acción realizada!", "Registro modificado con exito", "success", "Hecho");
+                    MostrarDatos();
+                } else {
+                    alertaSimple("¡Acción Fallida!", "Registro no se pudo actualizar", "error", "Vale");
+                }
+            });
+
+        }
+
+        function estadoAdmin(idestado) {
+            console.log("id: " + idestado);
+            var nombre = "";
+            var apellido = "";
+            pasar = "obtener";
+
+            $.post("Controller/ControllerEmpleado.php", {
+                idObteSend: idestado,
+                paso: pasar
+            }, function(data, status) {
+                var id = JSON.parse(data);
+                if (id == 0) {
+                    alertaSimple("¡Acción Fallida!", "No se pudo Obtener datos", "error", "Vale");
+                } else {
+                    nombre = id.nombre;
+                    apellido = id.apellido;
+                }
+            });
+
+            var estadocheck = 0;
+            pasar = "cambioEstadoAdmin";
+            // Comprobar cuando cambia un checkbox
+            $('input[type=checkbox]').on('change', function() {
+                if ($(this).is(':checked')) {
+                    estadocheck = 1;
+                    console.log("Checkbox " + $(this).prop("id") + " (" + $(this).val() + ") => Seleccionado");
+                } else {
+                    estadocheck = 0;
+                    console.log("Checkbox " + $(this).prop("id") + " (" + $(this).val() + ") => Deseleccionado");
+                }
+
+                if (estadocheck === 1) {
+                    $.post("Controller/ControllerEmpleado.php", {
+                        IdcambioSend: idestado,
+                        paso: pasar,
+                        estadoSend: estadocheck
+                    }, function(data, status) {
+                        var hecho = JSON.parse(data);
+                        if (hecho === 1) {
+                            MensajeEsquina("info", nombre + " " + apellido + " ahora es Administrador");
+                            MostrarDatos();
+                        } else {
+                            MensajeEsquina("error", "Error al cambiar estado");
+                        }
+                    });
+                } else {
+                    $.post("Controller/ControllerEmpleado.php", {
+                        IdcambioSend: idestado,
+                        paso: pasar,
+                        estadoSend: estadocheck
+                    }, function(data, status) {
+                        var hecho = JSON.parse(data);
+                        if (hecho === 1) {
+                            MensajeEsquina("warning", nombre + " " + apellido + " ya NO es Administrador");
+                            MostrarDatos();
+                        } else {
+                            MensajeEsquina("error", "Error al cambiar estado");
+                        }
+                    });
+                }
+            });
+        }
+
+        function estadoActivo(idestado) {
+            console.log("id capturado: " + idestado);
+            var nombreA = "";
+            var apellidoA = "";
+            var estado = 0;
+            pasar = "obtener";
+
+            $.post("Controller/ControllerEmpleado.php", {
+                idObteSend: idestado,
+                paso: pasar
+            }, function(data, status) {
+                var idA = JSON.parse(data);
+                if (idA == 0) {
+                    alertaSimple("¡Acción Fallida!", "No se pudo Obtener datos", "error", "Vale");
+                } else {
+                    nombreA = idA.nombre;
+                    apellidoA = idA.apellido;
+                    estado = idA.estado;
+                }
+            });
+
+            $.post("Controller/ControllerEmpleado.php", {
+                IdcambioASend: idestado,
+                paso: pasar,
+            }, function(data, status) {
+                var hecho = JSON.parse(data);
+
+                if (hecho === 1) {
+
+                    if (estado == 1) {
+                        MensajeEsquina("warning", "Se cambio el estado de " + nombreA + " " + apellidoA + " a Inactivo");
                     } else {
-                        nombre = id.nombre;
-                        apellido = id.apellido;
-                    }
-                });
-
-                var estadocheck = 0;
-                pasar = "cambioEstadoAdmin";
-                // Comprobar cuando cambia un checkbox
-                $('input[type=checkbox]').on('change', function() {
-                    if ($(this).is(':checked')) {
-                        estadocheck = 1;
-                        console.log("Checkbox " + $(this).prop("id") + " (" + $(this).val() + ") => Seleccionado");
-                    } else {
-                        estadocheck = 0;
-                        console.log("Checkbox " + $(this).prop("id") + " (" + $(this).val() + ") => Deseleccionado");
+                        MensajeEsquina("info", "Se cambio el estado de " + nombreA + " " + apellidoA + " a Activo");
                     }
 
-                    if (estadocheck === 1) {
-                        $.post("Controller/ControllerEmpleado.php", {
-                            IdcambioSend: idestado,
-                            paso: pasar,
-                            estadoSend: estadocheck
-                        }, function(data, status) {
-                            var hecho = JSON.parse(data);
-                            if (hecho === 1) {
-                                MensajeEsquina("info", nombre + " " + apellido + " ahora es Administrador");
-                                MostrarDatos();
-                            } else {
-                                MensajeEsquina("error", "Error al cambiar estado");
-                            }
-                        });
-                    } else {
-                        $.post("Controller/ControllerEmpleado.php", {
-                            IdcambioSend: idestado,
-                            paso: pasar,
-                            estadoSend: estadocheck
-                        }, function(data, status) {
-                            var hecho = JSON.parse(data);
-                            if (hecho === 1) {
-                                MensajeEsquina("warning", nombre + " " + apellido + " ya NO es Administrador");
-                                MostrarDatos();
-                            } else {
-                                MensajeEsquina("error", "Error al cambiar estado");
-                            }
-                        });
-                    }
+                    MostrarDatos();
+                } else {
+                    MensajeEsquina("error", "Error al cambiar estado");
+                }
+            });
+
+        }
+
+        function Limpiar() {
+            $('#Id-icon').val("");
+            $('#Nombre-icon').val("");
+            $('#Apellido-icon').val("");
+            $('#Correo-icon').val("");
+            $('#Contraseña-icon').val("");
+            $('#completeModal').modal('hide');
+            $('#Correo-icon').css("background", "#fff");
+            $('#Nombre-icon').css("background", "#fff");
+            $('#Apellido-icon').css("background", "#fff");
+            $('#Contraseña-icon').css("background", "#fff");
+            $('#Correo-icon').css("background", "#fff");
+            $('#admin-icon').prop('checked', false);
+        }
+
+        function LimpiarMod() {
+            $('#mod-Id-icon').val("");
+            $('#mod-Nombre-icon').val("");
+            $('#mod-Apellido-icon').val("");
+            $('#mod-Correo-icon').val("");
+            $('#mod-Contraseña-icon').val("");
+            $('#ModificarModal').modal('hide');
+            $('#mod-Correo-icon').css("background", "#fff");
+            $('#mod-Nombre-icon').css("background", "#fff");
+            $('#mod-Apellido-icon').css("background", "#fff");
+            $('#mod-Contraseña-icon').css("background", "#fff");
+            $('#mod-Correo-icon').css("background", "#fff");
+        }
 
 
-                });
-            }
+        function alertaSimple(titulo, texto, icono, boton) {
+            swal.fire({
+                title: titulo,
+                text: texto,
+                icon: icono,
+                confirmButtonColor: '#fb4669',
+                confirmButtonText: boton
+            });
+        }
 
-            function Limpiar() {
-                $('#Id-icon').val("");
-                $('#Nombre-icon').val("");
-                $('#Apellido-icon').val("");
-                $('#Correo-icon').val("");
-                $('#Contraseña-icon').val("");
-                $('#completeModal').modal('hide');
-                $('#Correo-icon').css("background", "#fff");
-                $('#Nombre-icon').css("background", "#fff");
-                $('#Apellido-icon').css("background", "#fff");
-                $('#Contraseña-icon').css("background", "#fff");
-                $('#Correo-icon').css("background", "#fff");
-            }
-
-
-            function alertaSimple(titulo, texto, icono, boton) {
-                swal.fire({
-                    title: titulo,
-                    text: texto,
-                    icon: icono,
-                    confirmButtonColor: '#fb4669',
-                    confirmButtonText: boton
-                });
-            }
-
-            function confirEliminarEmpleado(idActualizar) {
-                Swal.fire({
-                    title: '¿Desea Eliminar?',
-                    text: "¡No podra recuperar la información!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonText: "Cancelar",
-                    confirmButtonColor: '#6c757d',
-                    cancelButtonColor: '#dc3545',
-                    confirmButtonText: 'Si, Eliminar!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire({
-                            title: '¡Eliminado!',
-                            text: 'Se elimino el registro con exito.',
-                            icon: 'success',
-                            confirmButtonColor: '#fb4669',
-                            confirmButtonText: 'Hecho'
-                        })
-                        Eliminar(idActualizar);
-                    }
-                })
-            }
+        function confirEliminarEmpleado(idActualizar) {
+            Swal.fire({
+                title: '¿Desea Eliminar?',
+                text: "¡No podra recuperar la información!",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: '#6c757d',
+                cancelButtonColor: '#dc3545',
+                confirmButtonText: 'Si, Eliminar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: '¡Eliminado!',
+                        text: 'Se elimino el registro con exito.',
+                        icon: 'success',
+                        confirmButtonColor: '#fb4669',
+                        confirmButtonText: 'Hecho'
+                    })
+                    Eliminar(idActualizar);
+                }
+            })
+        }
 
 
 
-            function MensajeEsquina(icono, titulo) {
+        function MensajeEsquina(icono, titulo) {
 
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
 
-                Toast.fire({
-                    icon: icono,
-                    title: titulo
-                })
+            Toast.fire({
+                icon: icono,
+                title: titulo
+            })
 
-            }
+        }
 
-            function toastify(titulo, colornum) {
-                let color = ["#dc3545", "#198754", "#fb4669"];
-                Toastify({
-                    text: titulo,
-                    duration: 3000,
-                    destination: "#",
-                    newWindow: true,
-                    close: true,
-                    gravity: "bottom", // `top` or `bottom`
-                    position: "right", // `left`, `center` or `right`
-                    stopOnFocus: true, // Prevents dismissing of toast on hover
-                    style: {
-                        background: color[colornum],
-                    },
-                    onClick: function() {} // Callback after click
-                }).showToast();
-            }
-        </script>
+        function toastify(titulo, colornum) {
+            let color = ["#dc3545", "#198754", "#fb4669"];
+            Toastify({
+                text: titulo,
+                duration: 3000,
+                destination: "#",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: color[colornum],
+                },
+                onClick: function() {} // Callback after click
+            }).showToast();
+        }
+    </script>
 </body>
 
 </html>
