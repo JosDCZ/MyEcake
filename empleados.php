@@ -515,37 +515,51 @@ include "Config/Conexion.php"
             }
 
             function estadoAdmin(idestado) {
-
+                console.log("id: " + idestado);
+                var estadocheck = 0;
+                pasar = "cambioEstadoAdmin";
                 // Comprobar cuando cambia un checkbox
                 $('input[type=checkbox]').on('change', function() {
                     if ($(this).is(':checked')) {
-                        console.log("Checkbox " + $(this).prop("id") + " (" + $(this).val() + ") => Seleccionado "+ idestado);
+                        estadocheck = 1;
+                        console.log("Checkbox " + $(this).prop("id") + " (" + $(this).val() + ") => Seleccionado");
                     } else {
-                        console.log("Checkbox " + $(this).prop("id") + " (" + $(this).val() + ") => Deseleccionado " + idestado);
+                        estadocheck = 0;
+                        console.log("Checkbox " + $(this).prop("id") +  " (" + $(this).val() + ") => Deseleccionado");
                     }
+
+                    if (estadocheck===1) {
+                        $.post("Controller/ControllerEmpleado.php", {
+                        IdSend: idestado,
+                        paso: pasar,
+                        estadoSend: estadocheck
+                    }, function(data, status) {
+                        var hecho = JSON.parse(data);
+                        if (hecho === 1) {
+                            MensajeEsquina("info", "Ahora es Administrador");
+                            MostrarDatos();
+                        } else {
+                            MensajeEsquina("error", "Error al cambiar estado");
+                        }
+                    }); 
+                    } else {
+                        $.post("Controller/ControllerEmpleado.php", {
+                        IdSend: idestado,
+                        paso: pasar,
+                        estadoSend: estadocheck
+                    }, function(data, status) {
+                        var hecho = JSON.parse(data);
+                        if (hecho === 1) {
+                            MensajeEsquina("info", "Ya no es Administrador");
+                            MostrarDatos();
+                        } else {
+                            MensajeEsquina("error", "Error al cambiar estado");
+                        }
+                    });
+                    }
+
+                   
                 });
-
-
-
-                /*var IdAdd = $('#admin').val();
-                if ($('#admin').is(':checked')) {
-                    console.log("bien");
-                } else {
-                    console.log("mal");
-                }*/
-
-
-
-                /*  $.ajax({
-                     url: "Controller/ControllerEmpleado.php",
-                     type: 'POST',
-                     data: {
-                         MostrarSend: MostrarDatos
-                     },
-                     success: function(data, status) {
-                         $('#tablaMostrar').html(data);
-                     }
-                 }); */
             }
 
             function Limpiar() {
@@ -628,7 +642,7 @@ include "Config/Conexion.php"
                     destination: "#",
                     newWindow: true,
                     close: true,
-                    gravity: "top", // `top` or `bottom`
+                    gravity: "bottom", // `top` or `bottom`
                     position: "right", // `left`, `center` or `right`
                     stopOnFocus: true, // Prevents dismissing of toast on hover
                     style: {

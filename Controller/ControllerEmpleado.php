@@ -71,6 +71,50 @@ if ($paso == "Actualizar") {
     }
 }
 
+if ($paso == "obtener") {
+    if (isset($_POST['idSend'])) {
+        $id_valor = $_POST['idSend'];
+    
+        $sql = "SELECT * FROM empleado WHERE idempleado = $id_valor";
+    
+        $result = mysqli_query($con, $sql);
+        $respuesta = array();
+    
+        while ($fila = mysqli_fetch_assoc($result)) {
+            $respuesta = $fila;
+            }
+
+        if ($result === false) {
+            echo json_encode(0);
+        } else {
+            echo json_encode($respuesta);
+        }
+    
+        
+    } else {
+        $respuesta['status'] = 200;
+        $respuesta['message'] = "Invalido o error de información.";
+    }
+}
+
+if ($paso == "cambioEstadoAdmin") {
+    if (isset($_POST['IdSend'])) {
+        $unico = $_POST['IdSend'];
+        $estadoAdmin= $_POST['estadoSend'];
+    
+        $sql = "UPDATE empleado SET administrador = $estadoAdmin  WHERE idempleado = $unico";
+    
+        $result = mysqli_query($con, $sql);
+
+        if ($result === false) {
+            echo json_encode(0);
+        } else {
+            echo json_encode(1);;
+        }
+    
+    }
+}
+
 if ($paso == "Borrar") {
     if (isset($_POST['eliminarSend'])) {
         $unico = $_POST['eliminarSend'];
@@ -125,13 +169,17 @@ if (isset($_POST['MostrarSend'])) {
         }
 
         if ($administrador == 1) {
-            $tabla .= '<td><!-- Rounded switch -->
+            $tabla .= '<td>
+            <label class="switch">
+              <input type="checkbox" id="admin'.$contador.'" onclick="estadoAdmin(' . $idempleado. ')"  checked="checked">
+              <span class="slider round"></span>
+            </label></td>';
+        } else {
+            $tabla .= '<td>
             <label class="switch">
               <input type="checkbox" id="admin'.$contador.'" onclick="estadoAdmin(' . $idempleado. ')">
               <span class="slider round"></span>
             </label></td>';
-        } else {
-            $tabla .= '<td><span class="badge bg-danger">De baja</span></td>';
         }
         $tabla .= '<td>
             <button class="btn btn-secondary" onclick="MostrarEditar(' . $idempleado . ')"><i class="bi bi-pencil-square"></i></button>
