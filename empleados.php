@@ -516,6 +516,23 @@ include "Config/Conexion.php"
 
             function estadoAdmin(idestado) {
                 console.log("id: " + idestado);
+                var nombre = ""; 
+                var apellido = "";
+                pasar = "obtener";
+
+                $.post("Controller/ControllerEmpleado.php", {
+                    idObteSend: idestado,
+                    paso: pasar
+                }, function(data, status) {
+                    var id = JSON.parse(data);
+                    if (id == 0) {
+                        alertaSimple("¡Acción Fallida!", "No se pudo Obtener datos", "error", "Vale");
+                    } else {
+                        nombre = id.nombre;
+                        apellido = id.apellido;
+                    }
+                });
+
                 var estadocheck = 0;
                 pasar = "cambioEstadoAdmin";
                 // Comprobar cuando cambia un checkbox
@@ -525,40 +542,40 @@ include "Config/Conexion.php"
                         console.log("Checkbox " + $(this).prop("id") + " (" + $(this).val() + ") => Seleccionado");
                     } else {
                         estadocheck = 0;
-                        console.log("Checkbox " + $(this).prop("id") +  " (" + $(this).val() + ") => Deseleccionado");
+                        console.log("Checkbox " + $(this).prop("id") + " (" + $(this).val() + ") => Deseleccionado");
                     }
 
-                    if (estadocheck===1) {
+                    if (estadocheck === 1) {
                         $.post("Controller/ControllerEmpleado.php", {
-                        IdSend: idestado,
-                        paso: pasar,
-                        estadoSend: estadocheck
-                    }, function(data, status) {
-                        var hecho = JSON.parse(data);
-                        if (hecho === 1) {
-                            MensajeEsquina("info", "Ahora es Administrador");
-                            MostrarDatos();
-                        } else {
-                            MensajeEsquina("error", "Error al cambiar estado");
-                        }
-                    }); 
+                            IdcambioSend: idestado,
+                            paso: pasar,
+                            estadoSend: estadocheck
+                        }, function(data, status) {
+                            var hecho = JSON.parse(data);
+                            if (hecho === 1) {
+                                MensajeEsquina("info", nombre + " " + apellido + " ahora es Administrador");
+                                MostrarDatos();
+                            } else {
+                                MensajeEsquina("error", "Error al cambiar estado");
+                            }
+                        });
                     } else {
                         $.post("Controller/ControllerEmpleado.php", {
-                        IdSend: idestado,
-                        paso: pasar,
-                        estadoSend: estadocheck
-                    }, function(data, status) {
-                        var hecho = JSON.parse(data);
-                        if (hecho === 1) {
-                            MensajeEsquina("info", "Ya no es Administrador");
-                            MostrarDatos();
-                        } else {
-                            MensajeEsquina("error", "Error al cambiar estado");
-                        }
-                    });
+                            IdcambioSend: idestado,
+                            paso: pasar,
+                            estadoSend: estadocheck
+                        }, function(data, status) {
+                            var hecho = JSON.parse(data);
+                            if (hecho === 1) {
+                                MensajeEsquina("warning", nombre + " " + apellido + " ya NO es Administrador");
+                                MostrarDatos();
+                            } else {
+                                MensajeEsquina("error", "Error al cambiar estado");
+                            }
+                        });
                     }
 
-                   
+
                 });
             }
 

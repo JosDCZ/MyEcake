@@ -72,8 +72,8 @@ if ($paso == "Actualizar") {
 }
 
 if ($paso == "obtener") {
-    if (isset($_POST['idSend'])) {
-        $id_valor = $_POST['idSend'];
+    if (isset($_POST['idObteSend'])) {
+        $id_valor = $_POST['idObteSend'];
     
         $sql = "SELECT * FROM empleado WHERE idempleado = $id_valor";
     
@@ -98,8 +98,8 @@ if ($paso == "obtener") {
 }
 
 if ($paso == "cambioEstadoAdmin") {
-    if (isset($_POST['IdSend'])) {
-        $unico = $_POST['IdSend'];
+    if (isset($_POST['IdcambioSend'])) {
+        $unico = $_POST['IdcambioSend'];
         $estadoAdmin= $_POST['estadoSend'];
     
         $sql = "UPDATE empleado SET administrador = $estadoAdmin  WHERE idempleado = $unico";
